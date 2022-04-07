@@ -24,11 +24,11 @@ jobs:
         run: |
             curl -u "lgmorand:$PAT" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/lgmorandOrg/LG-repository-template/branches | jq '[{"name": .[].name, "status": .[].protected}]'
+            https://api.github.com/repos/lgmorandOrg/LG-repository-template/branches | jq '[{"name": .[].name, "protected": .[].protected}]'
 
       - name: Enable protected branch
         run: | 
-           curl -u "lgmorand:$PAT" \
+           curl -X PATCH -u "lgmorand:$PAT" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/lgmorandOrg/LG-repository-template/branches
+            https://api.github.com/repos/lgmorandOrg/LG-repository-template/branches/main/protection/required_pull_request_reviews -d '{"require_code_owner_reviews":true}'
            
