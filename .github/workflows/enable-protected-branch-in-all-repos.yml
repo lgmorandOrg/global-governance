@@ -1,14 +1,19 @@
-# This workflows list all repos, their branch and enable it for main branch
+# This workflows parse all existing repos and enforce branch policy
 
 name: Enable protected Branchs everywhere
 
 on:
+  # manual
   workflow_dispatch:
+  # nightly every day
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   Enforce:
     env:
       PAT: ${{ secrets.PAT }}
+      orgName: "lgmorandOrg/"
     runs-on: ubuntu-latest
     steps:
       - name: Install jq
@@ -18,17 +23,17 @@ jobs:
         run: |
             curl -u "lgmorand:$PAT" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/orgs/lgmorandOrg/repos | jq '.[].full_name'
+            https://api.github.com/orgs/$orgName/repos | jq '.[].full_name'
 
       - name: List branchs and status
         run: |
             curl -u "lgmorand:$PAT" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/lgmorandOrg/LG-repository-template/branches | jq '[{"name": .[].name, "protected": .[].protected}]'
+            https://api.github.com/repos/$orgName/LG-repository-template/branches | jq '[{"name": .[].name, "protected": .[].protected}]'
 
       - name: Enable protected branch
         run: | 
            curl -X PATCH -u "lgmorand:$PAT" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/lgmorandOrg/LG-repository-template/branches/main/protection/required_pull_request_reviews -d '{"require_code_owner_reviews":true}'
+            https://api.github.com/repos/$orgName/LG-repository-template/branches/main/protection/required_pull_request_reviews -d '{"require_code_owner_reviews":true}'
            
