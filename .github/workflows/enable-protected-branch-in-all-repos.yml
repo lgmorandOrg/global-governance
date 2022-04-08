@@ -38,4 +38,8 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/${{ env.ORG_NAME }}/LG-repository-template/branches/main/protection/required_pull_request_reviews -d '{"require_code_owner_reviews":true}'
            
-      
+      - name: Create a README file
+        run: |
+         curl -X PUT -u "lgmorand:$PAT" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ env.ORG_NAME }}/dsdfsdf/contents/README.md  -d '{"message":"creating a README file","content":"Content of the README"}'
