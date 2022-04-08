@@ -24,7 +24,7 @@ jobs:
         run: |
             curl -u "lgmorand:$PAT" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/orgs/${{ env.ORG_NAME }}/repos | jq '.[].full_name'
+            https://api.github.com/orgs/${{ env.ORG_NAME }}/repos | jq '[{"repo_name":.[].full_name, "main_branch": .[].default_branch}]'
 
       - name: List branchs and status
         run: |
