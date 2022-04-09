@@ -32,7 +32,7 @@ bundle
 ruby server.rb
 ```
 
-![Ruby app running](ruby.png)
+![Ruby app running](./doc/ruby.png)
 
 2. Proxy it using Ngrok (using the same port number that the one used by ruby application)
 
@@ -40,7 +40,7 @@ ruby server.rb
 ngrok http 4567
 ```
 
-![ngrok](ngrok.png)
+![ngrok](./doc/ngrok.png)
 
 ### Configuring webhook
 
@@ -58,14 +58,14 @@ You must configure a organizational webhook, configure to send events regarding 
 
 (Optional) You can define a secret but you'll have to set it on the webhook and in the web component using SECRET_TOKEN env variable
 
-![New Webhook](webhook.png)
+![New Webhook](./doc/webhook.png)
 
 4. Filter the events to only select "repository"
 
-![events](events.png)
+![events](./doc/events.png)
 
 That's it. When a new repository is **created**, an event will be sent to the component.
 
 > Note: some events (repo deletion/update/etc) will be sent to the component too but it has been configured to disregard them.
 
-![demo](demo.gif)
+![demo](./doc/demo.gif)
