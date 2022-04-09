@@ -20,6 +20,6 @@ jobs:
 
         
       - name: Enforce all repos
-        run: . scripts/enable-protected-branch-in-all-repos.sh 
+        run: . .github/workflows/scripts/enable-protected-branch-in-all-repos.sh 
 
      
