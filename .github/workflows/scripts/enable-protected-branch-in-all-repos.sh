@@ -11,13 +11,13 @@ function processRepo() {
   isProtected=$(curl -s -u "lgmorand:$PAT" $urlBranch | jq .protected)
   
   if [ $isProtected == "false" ]; then
-     curl -X PUT -u "lgmorand:$PAT" $urlProtection -H "Accept: application/vnd.github.v3+json"  -d '{"required_status_checks": null,"enforce_admins": null,"required_pull_request_reviews" : {"dismissal_restrictions": {},"dismiss_stale_reviews": false,"require_code_owner_reviews": true,"required_approving_review_count": 1},"restrictions":null}'
+     curl -s -X PUT -u "lgmorand:$PAT" $urlProtection -H "Accept: application/vnd.github.v3+json"  -d '{"required_status_checks": null,"enforce_admins": null,"required_pull_request_reviews" : {"dismissal_restrictions": {},"dismiss_stale_reviews": false,"require_code_owner_reviews": true,"required_approving_review_count": 1},"restrictions":null}'
      echo "Protection has been added on $repo_name"
   fi
 }
 
 # List all repos
-curl -u "lgmorand:$PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/orgs/lgmorandOrg/repos | jq '[.[] | {"repo_name":.full_name, "main_branch": .default_branch}]' > repositories.json
+curl -s -u "lgmorand:$PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/orgs/lgmorandOrg/repos | jq '[.[] | {"repo_name":.full_name, "main_branch": .default_branch}]' > repositories.json
 cat repositories.json
 
 # iterate on each repo
