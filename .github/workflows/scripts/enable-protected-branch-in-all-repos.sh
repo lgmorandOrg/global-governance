@@ -12,7 +12,7 @@ function processRepo() {
   
   if [ $isProtected == "false" ]; then
      curl -X PUT -u "lgmorand:$PAT" $urlProtection -H "Accept: application/vnd.github.v3+json"  -d '{"required_status_checks": null,"enforce_admins": null,"required_pull_request_reviews" : {"dismissal_restrictions": {},"dismiss_stale_reviews": false,"require_code_owner_reviews": true,"required_approving_review_count": 1},"restrictions":null}'
-     echo "protection has been added on $repo_name"
+     echo "Protection has been added on $repo_name"
   fi
 }
 

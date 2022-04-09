@@ -1,0 +1,6 @@
+source "http://rubygems.org"
+
+gem "json",        "~> 2.6.1"
+gem 'sinatra',     '~> 2.2'
+gem 'octokit'
+gem 'rest-client'
