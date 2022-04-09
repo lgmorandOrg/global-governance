@@ -1,7 +1,7 @@
 name: Enforce
 on:
   repository_dispatch:
-
+    types: [setProtection]
 jobs:
   build:
     runs-on: ubuntu-latest
